@@ -1,0 +1,49 @@
+[project]
+name = "first-graph"
+version = "0.1.0"
+description = "Ваш первый граф агентов, без фреймворка. Плюс детектор фальшивых ожиданий в пайплайне."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Edvard Grishin" }]
+keywords = ["agents", "graph", "orchestration", "pipeline", "llm", "workflow"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries",
+    "Natural Language :: Russian",
+]
+dependencies = []
+
+[project.urls]
+Repository = "https://github.com/edvardgrishin27/first-graph"
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+first-graph = "first_graph.extras.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+# В дистрибутив едет только пакет. Примеры, тесты, эксперименты и планы
+# остаются в репозитории, но в колесо не пакуются — ставить их незачем.
+[tool.hatch.build.targets.wheel]
+packages = ["first_graph"]
+
+[tool.hatch.build.targets.sdist]
+only-include = [
+    "first_graph",
+    "README.md",
+    "LICENSE",
+    "CLAIMS.md",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

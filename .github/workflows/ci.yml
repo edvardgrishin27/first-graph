@@ -1,0 +1,24 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: pip install pytest
+      - run: python -m pytest tests/ -q
+      - name: демо обязано отрабатывать
+        run: python -m first_graph.cli demo || test $? -eq 1
+      - name: якорь обязан останавливать граф
+        run: python examples/anchor_demo.py || test $? -eq 1
